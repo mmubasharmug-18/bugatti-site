@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Bugatti — Automotive Art Form</title>
+<meta name="description" content="An interactive cinematic presentation of Bugatti: engineering precision, aerodynamics, and craftsmanship.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ PRELOADER ============ -->
+<div id="preloader">
+  <div class="preloader-inner">
+    <div class="preloader-mark">
+      <svg viewBox="0 0 60 60" class="preloader-glyph"><circle cx="30" cy="30" r="28" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="30" cy="30" r="3" fill="currentColor"/></svg>
+    </div>
+    <div class="preloader-word">BUGATTI</div>
+    <div class="preloader-bar-track"><div class="preloader-bar-fill" id="preloaderFill"></div></div>
+    <div class="preloader-status" id="preloaderStatus">LOADING EXPERIENCE — 0%</div>
+  </div>
+</div>
+
+<!-- ============ CURSOR / SIGNATURE ELEMENT ============ -->
+<div id="reticle" aria-hidden="true">
+  <div class="reticle-ring"></div>
+  <div class="reticle-dot"></div>
+  <div class="reticle-coord" id="reticleCoord">X 0.000 / Y 0.000</div>
+</div>
+
+<!-- ============ SCROLL PROGRESS ============ -->
+<div id="progress-track"><div id="progress-fill"></div></div>
+
+<!-- ============ NAVIGATION ============ -->
+<nav id="site-nav">
+  <div class="nav-brand">BUGATTI</div>
+  <ul class="nav-index" id="navIndex">
+    <li data-target="hero"><span class="nav-num">01</span><span class="nav-label">Origin</span></li>
+    <li data-target="exterior"><span class="nav-num">02</span><span class="nav-label">Exterior</span></li>
+    <li data-target="front"><span class="nav-num">03</span><span class="nav-label">Face</span></li>
+    <li data-target="engine"><span class="nav-num">04</span><span class="nav-label">Engine</span></li>
+    <li data-target="wheels"><span class="nav-num">05</span><span class="nav-label">Wheels</span></li>
+    <li data-target="aero"><span class="nav-num">06</span><span class="nav-label">Aero</span></li>
+    <li data-target="interior"><span class="nav-num">07</span><span class="nav-label">Interior</span></li>
+    <li data-target="materials"><span class="nav-num">08</span><span class="nav-label">Materials</span></li>
+    <li data-target="performance"><span class="nav-num">09</span><span class="nav-label">Performance</span></li>
+    <li data-target="final"><span class="nav-num">10</span><span class="nav-label">Legacy</span></li>
+  </ul>
+  <button id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- ============ THREE.JS CANVAS (ambient particles) ============ -->
+<canvas id="webgl-bg"></canvas>
+
+<main id="main">
+
+  <!-- 01 HERO -->
+  <section class="scene" id="hero" data-index="01">
+    <div class="scene-media">
+      <video class="scene-video" data-src="assets/videos/01-hero.mp4" muted loop playsinline preload="auto"></video>
+      <div class="scene-scrim scrim-hero"></div>
+    </div>
+    <div class="scene-content hero-content">
+      <div class="eyebrow reveal-up">AUTOMOTIVE ART IN MOTION</div>
+      <h1 class="display-huge">
+        <span class="line reveal-up">THE ART</span>
+        <span class="line reveal-up">OF SPEED</span>
+      </h1>
+      <div class="hero-foot reveal-up">
+        <span class="foot-mark">BUGATTI</span>
+        <span class="foot-divider"></span>
+        <span class="foot-tag">FRENCH ENGINEERING · SINCE 1909</span>
+      </div>
+    </div>
+    <div class="scroll-cue">
+      <span>SCROLL</span>
+      <div class="scroll-cue-line"><i></i></div>
+    </div>
+  </section>
+
+  <!-- 02 EXTERIOR -->
+  <section class="scene" id="exterior" data-index="02">
+    <div class="scene-media">
+      <video class="scene-video" data-src="assets/videos/02-exterior.mp4" muted loop playsinline preload="none"></video>
+      <div class="scene-scrim scrim-default"></div>
+    </div>
+    <div class="scene-content align-left">
+      <div class="scene-eyebrow"><span class="idx-mark">02</span> EXTERIOR DESIGN</div>
+      <h2 class="display-lg">
+        <span class="line">FORM</span>
+        <span class="line">MEETS</span>
+        <span class="line">FUNCTION</span>
+      </h2>
+      <p class="scene-copy">Every panel is sculpted in service of airflow, not decoration — a silhouette shaped by the wind tunnel as much as by design instinct.</p>
+    </div>
+  </section>
+
+  <!-- 03 FRONT -->
+  <section class="scene" id="front" data-index="03">
+    <div class="scene-media">
+      <video class="scene-video" data-src="assets/videos/03-front.mp4" muted loop playsinline preload="none"></video>
+      <div class="scene-scrim scrim-dark"></div>
+    </div>
+    <div class="scene-content align-right">
+      <div class="scene-eyebrow"><span class="idx-mark">03</span> SIGNATURE FASCIA</div>
+      <h2 class="display-lg">
+        <span class="line">A FACE</span>
+        <span class="line">YOU NEVER</span>
+        <span class="line">FORGET</span>
+      </h2>
+      <p class="scene-copy">The horseshoe grille, the sculpted brow — a silhouette recognized before it is remembered.</p>
+    </div>
+  </section>
+
+  <!-- 04 ENGINE -->
+  <section class="scene tech-scene" id="engine" data-index="04">
+    <div class="scene-media">
+      <video class="scene-video" data-src="assets/videos/04-engine.mp4" muted loop playsinline preload="none"></video>
+      <div class="scene-scrim scrim-tech"></div>
+    </div>
+    <div class="tech-overlay" aria-hidden="true">
+      <div class="tech-line tech-line-h" style="top:22%"></div>
+      <div class="tech-line tech-line-h" style="top:78%"></div>
+      <div class="tech-readout tr-1">ENGINEERING</div>
+      <div class="tech-readout tr-2">PRECISION</div>
+      <div class="tech-readout tr-3">PERFORMANCE</div>
+    </div>
+    <div class="scene-content align-left">
+      <div class="scene-eyebrow"><span class="idx-mark">04</span> POWERTRAIN</div>
+      <h2 class="display-lg">
+        <span class="line">POWER</span>
+        <span class="line">WITHOUT</span>
+        <span class="line">COMPROMISE</span>
+      </h2>
+      <p class="scene-copy">A powertrain engineered as an act of precision, not excess — every component earning its place.</p>
+    </div>
+  </section>
+
+  <!-- 05 WHEELS -->
+  <section class="scene" id="wheels" data-index="05">
+    <div class="scene-media">
+      <video class="scene-video" data-src="assets/videos/05-wheels.mp4" muted loop playsinline preload="none"></video>
+      <div class="scene-scrim scrim-default"></div>
+    </div>
+    <div class="scene-content align-center">
+      <div class="scene-eyebrow center"><span class="idx-mark">05</span> MECHANICAL PRECISION</div>
+      <h2 class="display-lg center">
+        <span class="line">PRECISION</span>
+        <span class="line">IN MOTION</span>
+      </h2>
+      <p class="scene-copy center">Forged, balanced, and machined to tolerances measured in microns.</p>
+    </div>
+  </section>
+
+  <!-- 06 AERO -->
+  <section class="scene" id="aero" data-index="06">
+    <div class="scene-media">
+      <video class="scene-video" data-src="assets/videos/06-aero.mp4" muted loop playsinline preload="none"></video>
+      <div class="scene-scrim scrim-tech"></div>
+    </div>
+    <div class="aero-overlay" aria-hidden="true">
+      <svg class="aero-lines" viewBox="0 0 1200 600" preserveAspectRatio="none">
+        <path class="aero-path p1" d="M-50,120 C 300,80 600,160 1300,110" />
+        <path class="aero-path p2" d="M-50,260 C 300,220 600,300 1300,250" />
+        <path class="aero-path p3" d="M-50,400 C 300,360 600,440 1300,390" />
+      </svg>
+    </div>
+    <div class="scene-content align-right">
+      <div class="scene-eyebrow"><span class="idx-mark">06</span> AERODYNAMICS</div>
+      <h2 class="display-lg">
+        <span class="line">DESIGNED</span>
+        <span class="line">BY THE</span>
+        <span class="line">WIND</span>
+      </h2>
+      <p class="scene-copy">Air is not resisted — it is guided, channeled, and returned to the road as stability.</p>
+    </div>
+  </section>
+
+  <!-- 07 INTERIOR -->
+  <section class="scene" id="interior" data-index="07">
+    <div class="scene-media">
+      <video class="scene-video" data-src="assets/videos/07-interior.mp4" muted loop playsinline preload="none"></video>
+      <div class="scene-scrim scrim-default"></div>
+    </div>
+    <div class="scene-content align-left slow">
+      <div class="scene-eyebrow"><span class="idx-mark">07</span> COCKPIT</div>
+      <h2 class="display-lg">
+        <span class="line">THE COCKPIT</span>
+        <span class="line">OF</span>
+        <span class="line">EXCELLENCE</span>
+      </h2>
+      <p class="scene-copy">Driver-focused, hand-finished, and quietly technological — a cabin built around the person inside it.</p>
+    </div>
+  </section>
+
+  <!-- 08 MATERIALS -->
+  <section class="scene" id="materials" data-index="08">
+    <div class="scene-media">
+      <video class="scene-video" data-src="assets/videos/08-materials.mp4" muted loop playsinline preload="none"></video>
+      <div class="scene-scrim scrim-dark"></div>
+    </div>
+    <div class="scene-content align-right">
+      <div class="scene-eyebrow"><span class="idx-mark">08</span> CRAFTSMANSHIP</div>
+      <h2 class="display-lg">
+        <span class="line">CRAFTED</span>
+        <span class="line">BY HAND</span>
+      </h2>
+      <div class="material-list">
+        <span>LEATHER</span><span>CARBON FIBRE</span><span>MACHINED METAL</span><span>HAND STITCHING</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 PERFORMANCE -->
+  <section class="scene fast-scene" id="performance" data-index="09">
+    <div class="scene-media">
+      <video class="scene-video" data-src="assets/videos/09-performance.mp4" muted loop playsinline preload="none"></video>
+      <div class="scene-scrim scrim-tech"></div>
+    </div>
+    <div class="scene-content align-left">
+      <div class="scene-eyebrow"><span class="idx-mark">09</span> PERFORMANCE</div>
+      <h2 class="display-lg">
+        <span class="line">BORN</span>
+        <span class="line">TO</span>
+        <span class="line">PERFORM</span>
+      </h2>
+      <div class="perf-tags">
+        <span class="perf-tag">POWER</span>
+        <span class="perf-tag">PRECISION</span>
+        <span class="perf-tag">SPEED</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 FINAL -->
+  <section class="scene final-scene" id="final" data-index="10">
+    <div class="scene-media">
+      <video class="scene-video" data-src="assets/videos/10-final.mp4" muted loop playsinline preload="none"></video>
+      <div class="scene-scrim scrim-final"></div>
+    </div>
+    <div class="scene-content align-center final-content">
+      <h2 class="display-huge">
+        <span class="line">BUGATTI</span>
+      </h2>
+      <p class="final-line">AUTOMOTIVE ART FORM</p>
+      <p class="final-sub">CRAFTED FOR THOSE WHO REFUSE ORDINARY</p>
+    </div>
+    <footer class="site-footer">
+      <span>© BUGATTI EXPERIENCE</span>
+      <span class="footer-divider"></span>
+      <span>A CINEMATIC PRESENTATION</span>
+    </footer>
+  </section>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
